@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/mainListFragment">
+
+    <fragment
+        android:id="@+id/mainListFragment"
+        android:name="com.rupesh.myquote.views.MainListFragment"
+        android:label="fragment_main_list"
+        tools:layout="@layout/fragment_main_list" >
+        <action
+            android:id="@+id/action_mainListFragment_to_randomQuoteFragment2"
+            app:destination="@id/randomQuoteFragment2" />
+        <action
+            android:id="@+id/action_mainListFragment_to_quoteListFragment"
+            app:destination="@id/quoteListFragment" />
+        <action
+            android:id="@+id/action_mainListFragment_to_surveyActivity"
+            app:destination="@id/surveyActivity" />
+        <action
+            android:id="@+id/action_mainListFragment_to_inventoryActivity"
+            app:destination="@id/inventoryActivity" />
+    </fragment>
+    <fragment
+        android:id="@+id/randomQuoteFragment2"
+        android:name="com.rupesh.myquote.views.RandomQuoteFragment"
+        android:label="fragment_random_quote"
+        tools:layout="@layout/fragment_random_quote" >
+        <action
+            android:id="@+id/action_randomQuoteFragment2_to_mainListFragment"
+            app:destination="@id/mainListFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/quoteListFragment"
+        android:name="com.rupesh.myquote.views.QuoteListFragment"
+        android:label="fragment_quote_list"
+        tools:layout="@layout/fragment_quote_list" >
+        <action
+            android:id="@+id/action_quoteListFragment_to_mainListFragment"
+            app:destination="@id/mainListFragment" />
+    </fragment>
+    <activity
+        android:id="@+id/surveyActivity"
+        android:name="com.rupesh.myquote.views.SurveyActivity"
+        android:label="activity_survey"
+        tools:layout="@layout/activity_survey" />
+    <activity
+        android:id="@+id/inventoryActivity"
+        android:name="com.rupesh.myquote.views.InventoryActivity"
+        android:label="activity_inventory"
+        tools:layout="@layout/activity_inventory" />
+</navigation>
