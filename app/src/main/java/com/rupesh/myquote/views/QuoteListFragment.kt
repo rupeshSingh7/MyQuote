@@ -7,11 +7,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.rupesh.myquote.R
-import com.rupesh.myquote.viewModel.QuoteListViewModel
+import com.rupesh.myquote.viewModel.ValueListViewModel
 
 class QuoteListFragment : Fragment() {
 
-    private lateinit var viewModel: QuoteListViewModel
+    private lateinit var viewModel: ValueListViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -22,7 +22,7 @@ class QuoteListFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this)[QuoteListViewModel::class.java]
+        viewModel = ViewModelProvider(this)[ValueListViewModel::class.java]
 
     }
 

@@ -19,6 +19,8 @@ class QuoteViewmodel(private val context: Context ,private val quoteReposetory: 
     get() = quoteReposetory.randomQuote
 
     var isOnline = ResponseCallType.OFFLINE.value
+
+
      fun getRanDomQuote(){
          isOnline = ResponseCallType.OFFLINE.value
          viewModelScope.launch(Dispatchers.IO){

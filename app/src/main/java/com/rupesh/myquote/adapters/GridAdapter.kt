@@ -11,13 +11,12 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.rupesh.myquote.R
 import com.rupesh.myquote.callBackInterface.AdapterOnClickCallBack
+import com.rupesh.myquote.db.commonModule.Values
 
 class GridAdapter(private val mContext: Context, private val onClickCallBack: AdapterOnClickCallBack) :
     RecyclerView.Adapter<GridAdapter.ViewHolder>() {
 
 
-
-    //added by vinod
     private val mDiffer: AsyncListDiffer<Values> = AsyncListDiffer(this, object: DiffUtil.ItemCallback<Values>() {
 
 
@@ -42,6 +41,7 @@ class GridAdapter(private val mContext: Context, private val onClickCallBack: Ad
         mDiffer.submitList(values)
 
     }
+
 
 
 
@@ -110,24 +110,24 @@ class GridAdapter(private val mContext: Context, private val onClickCallBack: Ad
     }
 
 
-
-    class Values {
-
-        var imageId: Int = 0
-            private set
-        var summaryType: String = ""
-
-
-
-
-        constructor(imageId: Int, summaryType: String) {
-
-            this.imageId = imageId
-
-            this.summaryType = summaryType
-
-        }
-
-    }
+//
+//    class Values {
+//
+//        var imageId: Int = 0
+//            private set
+//        var summaryType: String = ""
+//
+//
+//
+//
+//        constructor(imageId: Int, summaryType: String) {
+//
+//            this.imageId = imageId
+//
+//            this.summaryType = summaryType
+//
+//        }
+//
+//    }
 
 }
