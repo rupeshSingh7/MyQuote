@@ -21,7 +21,7 @@ interface QuoteDao {
     suspend fun deleteQuoteById(id: Long)
 
     @Query("SELECT * FROM Quote")
-    suspend fun getAllQuotes(): List<Quote?>
+    suspend fun getAllQuotes(): List<Quote>
 
     @Query("SELECT * FROM Quote where quoteId = :any")
     suspend fun getRandomQuote2(any: Long): Quote?

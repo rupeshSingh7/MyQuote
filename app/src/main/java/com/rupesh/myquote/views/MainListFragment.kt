@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.NavHostFragment
@@ -58,18 +59,20 @@ class MainListFragment : Fragment(), AdapterOnClickCallBack {
         navHostFragment = activity?.supportFragmentManager?.findFragmentById(R.id.nav_host_fragment) as? NavHostFragment
         //val navController = navHostFragment?.navController
         val quoteRepository = (requireActivity().application as QuoteApplication).quoteReposetory
-        viewmodel = ViewModelProvider(this, QuoteViewModelFactory(requireContext(), quoteRepository)).get(ValueListViewModel::class.java)
+        viewmodel = ViewModelProvider(this, QuoteViewModelFactory(requireContext(), quoteRepository, 1)).get(ValueListViewModel::class.java)
 
     }
 
     override fun onResume() {
         super.onResume()
+        viewmodel?.getAllValues()
         viewmodel?.allValues?.observe(this){
 //            it.forEach { item ->
                 adapter?.submitList(it)
 //            }
 
         }
+
 
     }
     override fun onClickCallBack(i: Int, item: String) {

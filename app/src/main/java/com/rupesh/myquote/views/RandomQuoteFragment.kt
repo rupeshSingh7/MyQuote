@@ -35,7 +35,7 @@ class RandomQuoteFragment : Fragment() {
     override fun onResume() {
         super.onResume()
         val quoteRepository = (requireActivity().application as QuoteApplication).quoteReposetory
-        val quoteViewmodel = ViewModelProvider(this, QuoteViewModelFactory(requireContext(), quoteRepository!!)).get(QuoteViewmodel::class.java)
+        val quoteViewmodel = ViewModelProvider(this, QuoteViewModelFactory(requireContext(), quoteRepository)).get(QuoteViewmodel::class.java)
         quoteViewmodel.randomQuote.observe(this){
             textView!!.text = "\" ${it.content} \" \nBy - ${it.author}"
         }

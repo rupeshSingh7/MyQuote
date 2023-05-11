@@ -1,18 +1,17 @@
 package com.rupesh.myquote.db.dao
 
 import androidx.annotation.NonNull
-import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.rupesh.myquote.db.commonModule.Values
 
 @Dao
 interface ValuesDao {
-    @NonNull
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insert(value: Values) : Int
+
+    @Insert
+    suspend fun insert(value: Values)
 
     @Delete
-    suspend fun delete(values: Values): Int
+    suspend fun delete(values: Values)
 
     @Query("SELECT * FROM valueItem")
     suspend fun getAllValues(): List<Values>

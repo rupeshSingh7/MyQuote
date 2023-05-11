@@ -18,24 +18,41 @@ class QuoteViewmodel(private val context: Context ,private val quoteReposetory: 
     val randomQuote: LiveData<Quote>
     get() = quoteReposetory.randomQuote
 
-    var isOnline = ResponseCallType.OFFLINE.value
+    var status = -1
 
 
      fun getRanDomQuote(){
-         isOnline = ResponseCallType.OFFLINE.value
          viewModelScope.launch(Dispatchers.IO){
-            isOnline = quoteReposetory.getRandomQuote()
+            status = quoteReposetory.getRandomQuote()
              withContext(Dispatchers.Main){
                  //update UI
-                 if (isOnline ==  ResponseCallType.ONLINE.value){
+                 if (status ==  ResponseCallType.ONLINE.value){
                      Toast.makeText(context, "online", Toast.LENGTH_SHORT).show()
-                 }else if (isOnline ==  ResponseCallType.OFFLINE.value) {
+                 }else if (status ==  ResponseCallType.OFFLINE.value) {
                      Toast.makeText(context, "OffLine", Toast.LENGTH_SHORT).show()
                  }else {
-                     Toast.makeText(context, "${ResponseCallType.valueOf(isOnline.toString())}", Toast.LENGTH_SHORT).show()
+                     Toast.makeText(context, "${ResponseCallType.valueOf(status.toString())}", Toast.LENGTH_SHORT).show()
                  }
              }
          }
+    }
+
+    val allQuote: LiveData<List<Quote>>
+        get() = quoteReposetory.allQuotesList
+    fun getAllQuote(){
+        viewModelScope.launch {
+            val status = quoteReposetory.getAllQuotes()
+            withContext(Dispatchers.Main){
+                //update UI
+                if (status ==  ResponseCallType.ONLINE.value){
+                    Toast.makeText(context, "online", Toast.LENGTH_SHORT).show()
+                }else if (status ==  ResponseCallType.OFFLINE.value) {
+                    Toast.makeText(context, "OffLine", Toast.LENGTH_SHORT).show()
+                }else {
+                    Toast.makeText(context, "${ResponseCallType.valueOf(status.toString())}", Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
     }
 
 }

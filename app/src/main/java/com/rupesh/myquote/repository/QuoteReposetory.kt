@@ -16,17 +16,19 @@ class QuoteReposetory(private val context: Context, private val quoteApiService:
      * Repo handle for Value items
      */
     private val arrValues = MutableLiveData<List<Values>>()
-    val allValues = arrValues
+    val allValues: LiveData<List<Values>> = arrValues
 
     suspend fun getValues(){
-        allValues.value = myQuoteDb.getValuesDao().getAllValues()
+        arrValues.postValue(myQuoteDb.getValuesDao().getAllValues())
     }
 
-    suspend fun insertValues(values: Values): Int{
-       return myQuoteDb.getValuesDao().insert(values) //insert to db
+    suspend fun insertValues(values: Values){
+      // return
+        myQuoteDb.getValuesDao().insert(values) //insert to db
     }
-    suspend fun deleteValues(values: Values): Int{
-        return myQuoteDb.getValuesDao().delete(values)
+    suspend fun deleteValues(values: Values){
+        //return
+        myQuoteDb.getValuesDao().delete(values)
     }
 
     /**
@@ -65,6 +67,36 @@ class QuoteReposetory(private val context: Context, private val quoteApiService:
             }
         }
         return ResponseCallType.None.value
+    }
+
+    private val allQuotes = MutableLiveData<List<Quote>>()
+
+    val allQuotesList: LiveData<List<Quote>>
+        get() = allQuotes
+
+    suspend fun getAllQuotes(): Int{
+        if (NetworkUtils.isConnectedToInterNet(context)){
+            //from API
+            val quoteApiService = quoteApiService.getQuoteListByPageNo((1..50).random() )
+            val quotes = quoteApiService.body()
+            if (quoteApiService.isSuccessful && quotes != null){
+                allQuotes.postValue(quotes.results)
+                myQuoteDb.getQuoteDao().insertQuotes(quotes.results)
+                return ResponseCallType.OFFLINE.value
+            } else {
+                return ResponseCallType.RESPONSE_NULL_EMPTY.value
+            }
+
+        }else {
+            //from db (Offline)
+            val newQuote = myQuoteDb.getQuoteDao().getAllQuotes()
+            if (newQuote != null && newQuote.isNotEmpty()) {
+                allQuotes.postValue(newQuote)
+                return ResponseCallType.OFFLINE.value
+            }else{
+                return ResponseCallType.OFFLINE_NOT_FOUND_IN_DB.value
+            }
+        }
     }
 
 

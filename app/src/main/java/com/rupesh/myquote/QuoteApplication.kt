@@ -1,6 +1,7 @@
 package com.rupesh.myquote
 
 import android.app.Application
+import android.widget.Toast
 import com.rupesh.myquote.ApiServices.QuoteApiService
 import com.rupesh.myquote.ApiServices.RetroFitHelper
 import com.rupesh.myquote.adapters.GridAdapter
@@ -13,12 +14,14 @@ class QuoteApplication: Application() {
     private var job = Job()
     private val applicationScope = CoroutineScope(Dispatchers.Main + job)
     private val list = listOf(
-        Values("Random Quote", 1, ),
+        Values("Random Quote", 1 ),
         Values("Quote List", 2),
         Values("S List",3),
         Values("I List", 4)
     ).apply {
-        this.forEach { it.imageId = R.drawable.ic_launcher_foreground }
+        this.forEach {
+            it.imageId = R.drawable.ic_launcher_foreground
+        }
     }
 
     lateinit var quoteReposetory: QuoteReposetory
@@ -38,8 +41,13 @@ class QuoteApplication: Application() {
         applicationScope.launch {
             val value = db.getValuesDao().getAllValues()
             if (value.isEmpty()){
-                list.forEach { db.getValuesDao().insert(it) }
-            }
+                var i = 1
+                list.forEach {
+                    i++
+                    it.id = i.toLong() + Math.random().toLong() * 100
+                    db.getValuesDao().insert(it)
+                 }
+             }
         }
 
     }

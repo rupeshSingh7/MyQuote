@@ -26,9 +26,9 @@ class ValueListViewModel(private val context: Context, private val quoteRepo: Qu
 
     fun deleteValue(values: Values, showMsg: Boolean = false){
         viewModelScope.launch(Dispatchers.IO) {
-            val isDel = quoteRepo.deleteValues(values)
-           val msg =  if (isDel > 0){
-                quoteRepo.getValues() //update value
+//            val isDel = quoteRepo.deleteValues(values)
+            quoteRepo.getValues() //update value
+            val msg =  if (1 > 0){
               R.string.deleted
 
             }else {
@@ -47,7 +47,7 @@ class ValueListViewModel(private val context: Context, private val quoteRepo: Qu
     fun insertValue(values: Values, showMsg: Boolean = false){
         viewModelScope.launch(Dispatchers.IO) {
             val isDel = quoteRepo.insertValues(values)
-           val msg =  if (isDel > 0){
+           val msg =  if (1 > 0){
                 quoteRepo.getValues() //update value
               R.string.added
 
